@@ -19,5 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blog.urls')),  # Directs the root URL to your blog app
+    path('', include('blog.urls')),  # Root URL for your blog
+    path('accounts/', include('django.contrib.auth.urls')),  # Django's built-in auth views
 ]
+
