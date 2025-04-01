@@ -5,12 +5,17 @@ from django.shortcuts import render
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
+from django.core.paginator import Paginator
 
 
 # Function-based view for the homepage
 def home(request):
+    posts_list = Post.objects.all()                # Retrieve all posts
+    paginator = Paginator(posts_list, 5)             # Divide posts into pages with 5 posts per page
+    page_number = request.GET.get('page')           # Get current page number from URL query parameter
+    posts = paginator.get_page(page_number)         # Retrieve the posts for the current page
     context = {
-        'posts': Post.objects.all()
+        'posts': posts                             # Pass the Page object to the template
     }
     return render(request, 'blog/home.html', context)
 
