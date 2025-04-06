@@ -1,45 +1,66 @@
 {% extends "blog/base.html" %}
+{% block title %}Home - სპორტსაითი{% endblock %}
+
+{% comment %}
+  Override the tagline block to remove the tagline on the home page.
+{% endcomment %}
+{% block tagline %}{% endblock %}
+
 {% block content %}
-  <h1>Welcome to My Blog</h1>
+  <!-- Optionally, include any home page-specific navigation or content here -->
 
-  {% for post in posts %}
-    <div class="card mb-3">
-      <div class="card-body">
-        <h2 class="card-title">{{ post.title }}</h2>
-        <p class="card-text">{{ post.content|truncatewords:20 }}</p>
-        <a href="{% url 'post-detail' post.pk %}" class="btn btn-primary">Read More</a>
-      </div>
+  <!-- For example, a hero banner if you have one -->
+  {% if hero_banner %}
+  <div class="hero-banner mb-4">
+    <img src="{{ hero_banner.image.url }}" alt="Hero Banner" class="img-fluid">
+    <div class="hero-caption">
+      <p>{{ hero_banner.description|default:"No description provided" }}</p>
     </div>
-  {% empty %}
-    <p>No posts available.</p>
-  {% endfor %}
+  </div>
+{% endif %}
 
-  <!-- Pagination Controls -->
-  <nav aria-label="Page navigation">
-    <ul class="pagination">
-      {% if posts.has_previous %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
-        </li>
-      {% else %}
+  <!-- Main content of the home page -->
+  <div class="home-content">
+    <!-- Your posts loop or other content goes here -->
+    {% for post in posts %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="card-title">{{ post.title }}</h2>
+          <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+          <a href="{% url 'post-detail' post.pk %}" class="btn btn-primary">სრულად ნახვა</a>
+        </div>
+      </div>
+    {% empty %}
+      <p>No posts available.</p>
+    {% endfor %}
+
+    <!-- Pagination Controls -->
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        {% if posts.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <span class="page-link">Previous</span>
+          </li>
+        {% endif %}
+
         <li class="page-item disabled">
-          <span class="page-link">Previous</span>
+          <span class="page-link">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
         </li>
-      {% endif %}
 
-      <li class="page-item disabled">
-        <span class="page-link">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
-      </li>
-
-      {% if posts.has_next %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
-        </li>
-      {% else %}
-        <li class="page-item disabled">
-          <span class="page-link">Next</span>
-        </li>
-      {% endif %}
-    </ul>
-  </nav>
+        {% if posts.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <span class="page-link">Next</span>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils import timezone
 
 class Post(models.Model):
     title = models.CharField(max_length=200)  # A text field for the post's title.
@@ -28,5 +29,16 @@ class Comment(models.Model):
         return f'Comment by {self.author} on {self.post}'
 
 
+class HeroBanner(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='hero_banners/')
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
 
-# Create your models here.
+    def is_active(self):
+        now = timezone.now()
+        return self.start_date <= now <= self.end_date
+
+    def __str__(self):
+        return self.title

@@ -4,18 +4,22 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post
+from django.utils import timezone
+from .models import Post, HeroBanner
 from django.core.paginator import Paginator
 
 
 # Function-based view for the homepage
 def home(request):
+    now = timezone.now()
+    hero_banner = HeroBanner.objects.filter(start_date__lte=now, end_date__gte=now).first()
     posts_list = Post.objects.all()                # Retrieve all posts
     paginator = Paginator(posts_list, 5)             # Divide posts into pages with 5 posts per page
     page_number = request.GET.get('page')           # Get current page number from URL query parameter
     posts = paginator.get_page(page_number)         # Retrieve the posts for the current page
     context = {
-        'posts': posts                             # Pass the Page object to the template
+        'posts': posts,
+        'hero_banner': hero_banner,
     }
     return render(request, 'blog/home.html', context)
 

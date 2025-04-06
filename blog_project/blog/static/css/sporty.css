@@ -1,0 +1,65 @@
+/* sporty.css */
+
+/* Overall body background */
+body {
+    background-color: #f4f4f4;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Navigation bar styles */
+.navbar {
+    background-color: #1a1a1a; /* Darker shade for a sporty feel */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ff5722; /* Bold accent color */
+}
+
+/* Headings */
+h1, h2, h3 {
+    font-family: 'Arial Black', sans-serif;
+    color: #333;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #ff5722;
+    border-color: #ff5722;
+}
+
+/* Card styling for posts */
+.card {
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* Hero Banner Styles */
+.hero-banner {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.hero-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);  /* Semi-transparent overlay for readability */
+    color: #fff;                    /* White text */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.navbar-tagline {
+  color: #ffffff;    /* White text */
+  font-size: 1.5rem;  /* Slightly larger font size; adjust as needed */
+}
+
